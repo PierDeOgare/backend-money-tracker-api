@@ -6,5 +6,16 @@ use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
-    //
+    /**STORE TRANSACTION INFO RESPECTIVE OF THE WALLET  */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'wallet_id' => 'required|exists:wallets,id',
+            'type' => 'required|in:income,expense',
+            'amount' => 'required|numeric|min:0.01',
+            'description' => 'nullable|string'
+        ]);
+        $transaction = Transaction::create($request->all());
+        return response()->json($transaction, 201);
+    }
 }
