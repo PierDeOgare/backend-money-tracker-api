@@ -45,4 +45,10 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /*SHOW ONE USER CAN HAVE MULTIPLE WALLETS*/
+     public function wallets()
+    {
+        return $this->hasMany(Wallet::class);
+    }
 }
