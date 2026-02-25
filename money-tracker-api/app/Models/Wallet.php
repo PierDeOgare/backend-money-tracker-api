@@ -17,4 +17,18 @@ class Wallet extends Model
     {
         return $this->hasMany(Transaction::class);
     }
+
+    /**CALCULATE AND GET BALANCE FOR A WALLET */
+    public function getBalance()
+    {
+        $income = $this->transactions()
+            ->where('type', 'income')
+            ->sum('amount');
+
+        $expense = $this->transactions()
+            ->where('type', 'expense')
+            ->sum('amount');
+
+        return $income - $expense;
+    }
 }
